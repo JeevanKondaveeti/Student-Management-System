@@ -1,5 +1,5 @@
 import flet as ft
-
+from college_enroll import Student
 """
 Theory: Why do we need User Controls
 
@@ -10,28 +10,7 @@ Theory: Why do we need User Controls
 5)super().__init__() must be always called in your constructor
 """
 
-class Student(ft.UserControl):
-    #def __init__(self,first_name,last_name,date_of_birth,phone_number,address):
-    def __init__(self):
-        super().__init__()
-        #self.first_name =first_name
-        #self.last_name = last_name
-        #self.date_of_birth = date_of_birth
-        #self.phone_number = phone_number
-        #self.address = address
-    def build(self):
-        self.first_name=ft.TextField(label="first_name",hint_text="first_name",width=300)
-        self.last_name=ft.TextField(label="last_name",hint_text="last_name",width=300)
-        self.date_of_birth=ft.TextField(label="Date of birth",hint_text="Date_of_birth",width=300)
-        self.phone_number=ft.TextField(label="Phone_number",hint_text="phone_number",width=300)
-        self.address=ft.TextField(label="Address",hint_text="address",width=300)
-        self.save_student=ft.ElevatedButton("Save student",on_click=self.add_student)
-        #layout= ft.card(ft.Row([ft.Column([self.first_name,self.last_name,self.date_of_birth,self.phone_number,self.address,ft.Container(content=self.save_student,alignment=ft.alignment.center,width=300)])],alignment=ft.MainAxisAlignment.CENTER))
-        
-        return ft.Row([ft.Column([self.first_name,self.last_name,self.date_of_birth,self.phone_number,self.address,ft.Container(content=self.save_student,alignment=ft.alignment.center,width=300)])],alignment=ft.MainAxisAlignment.CENTER)
-    
-    def add_student(self,e):
-        pass
+
 def main(page:ft.Page):
     page.title= "Student management"
     page.horizontal_alignment="center"
@@ -42,6 +21,26 @@ def main(page:ft.Page):
         center_title=True,
         elevation=5,
     )
-    
-    page.add(Student())
+    def routed(route):
+        page.views.clear()
+        page.views.append(
+            ft.View(
+                '/',
+                controls=[
+                    ft.AppBar(title=ft.Text("Student Management Application"),
+                              center_title=True,
+                              elevation=5,),
+                    Student()
+                ]
+            )
+        )
+        page.update()
+
+    mybutton1 = ft.ElevatedButton("Enroll student",
+                                  icon=ft.icons.PERSON_2_SHARP,
+                                  on_click=lambda _: page.go('/'))
+    page.add(mybutton1)
+    page.on_route_change=routed
+
+    #page.go(page.route)
 ft.app(target=main)
