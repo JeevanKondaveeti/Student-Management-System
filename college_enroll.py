@@ -31,4 +31,8 @@ class Student(ft.UserControl):
         return ft.Row([ft.Column([self.first_name,self.last_name,self.date_of_birth,self.phone_number,self.address,ft.Container(content=self.save_student,alignment=ft.alignment.center,width=300)])],alignment=ft.MainAxisAlignment.CENTER)
     
     def add_student(self,e):
-        print(self.first_name.value)
+        if not self.first_name.value and not self.last_name and not self.date_of_birth and not self.phone_number and not self.address :
+            print("Enter Fields")
+        else:
+            with open('student.txt','a') as f:
+                f.write(self.first_name.value)
