@@ -27,6 +27,19 @@ def main(page:ft.Page):
             ft.View(
                 '/',
                 controls=[
+                    ft.AppBar(title=ft.Text("Student Management Application"),center_title=True,elevation=5),
+                    mycontainer
+                ],
+                vertical_alignment="center",
+                horizontal_alignment="center",
+                scroll=True,
+            )
+        )
+        if page.route == '/add_student':
+            page.views.append(
+            ft.View(
+                '/add_student',
+                controls=[
                     ft.AppBar(title=ft.Text("Student Management Application"),
                               center_title=True,
                               elevation=5,),
@@ -34,13 +47,35 @@ def main(page:ft.Page):
                 ]
             )
         )
+            
         page.update()
+    
+    def view_pop(view):
+        page.views.pop()
+        top_view = page.views[-1]
+        page.go(top_view.route)
 
-    mybutton1 = ft.ElevatedButton("Enroll student",
+    mybutton1 = ft.ElevatedButton("Add student",
                                   icon=ft.icons.PERSON_2_SHARP,
-                                  on_click=lambda _: page.go('/'))
-    page.add(mybutton1)
+                                  width=300,
+                                  
+                                  on_click=lambda _: page.go('/add_student'))
+    mybutton2 = ft.ElevatedButton("Add course",width=300,
+                                  icon=ft.icons.PERSON_2_SHARP,
+                                  on_click=lambda _: page.go('/add_course'))
+    mybutton3 = ft.ElevatedButton("Enroll student to course",width=300,
+                                  icon=ft.icons.PERSON_2_SHARP,
+                                  on_click=lambda _: page.go('/enroll'))
+    mycontainer = ft.Container(ft.Column([mybutton1,mybutton2,mybutton3],alignment=ft.MainAxisAlignment.CENTER),
+                               margin=10,
+                               padding=10,
+                               bgcolor=ft.colors.BLUE_200,
+                               border_radius=10,
+                               height=500,
+                              )
+    #page.add(mycontainer)
     page.on_route_change=routed
+    page.on_view_pop = view_pop
 
-    #page.go(page.route)
-ft.app(target=main)
+    page.go(page.route)
+ft.app(target=main,view=ft.AppView.WEB_BROWSER)

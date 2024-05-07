@@ -20,15 +20,35 @@ class Student(ft.UserControl):
         #self.phone_number = phone_number
         #self.address = address
     def build(self):
-        self.first_name=ft.TextField(label="first_name",hint_text="first_name",width=300)
-        self.last_name=ft.TextField(label="last_name",hint_text="last_name",width=300)
-        self.date_of_birth=ft.TextField(label="Date of birth",hint_text="Date_of_birth",width=300)
-        self.phone_number=ft.TextField(label="Phone_number",hint_text="phone_number",width=300)
-        self.address=ft.TextField(label="Address",hint_text="address",width=300)
+        self.first_name=ft.TextField(label="First Name",hint_text="First Name",width=300)
+        self.last_name=ft.TextField(label="Last Name",hint_text="Last Name",width=300)
+        self.date_of_birth=ft.TextField(label="Date of birth",hint_text="Date of birth",width=300)
+        self.phone_number=ft.TextField(label="Phone Number",hint_text="Phone Number",width=300)
+        self.address=ft.TextField(label="Address",hint_text="address",width=300,multiline=True)
         self.save_student=ft.ElevatedButton("Save student",on_click=self.add_student)
-        #layout= ft.card(ft.Row([ft.Column([self.first_name,self.last_name,self.date_of_birth,self.phone_number,self.address,ft.Container(content=self.save_student,alignment=ft.alignment.center,width=300)])],alignment=ft.MainAxisAlignment.CENTER))
-        
-        return ft.Row([ft.Column([self.first_name,self.last_name,self.date_of_birth,self.phone_number,self.address,ft.Container(content=self.save_student,alignment=ft.alignment.center,width=300)])],alignment=ft.MainAxisAlignment.CENTER)
+        self.student_container = ft.Container(
+            ft.Column(
+                [self.first_name,
+                 self.last_name,
+                 self.date_of_birth,
+                 self.phone_number,
+                 self.address,
+                 ft.Row(controls=[self.save_student],alignment=ft.alignment.center)
+                 ],
+                alignment=ft.MainAxisAlignment.CENTER,
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                ),
+            margin=10,
+            padding=10,
+            ink=True,
+            visible=True,
+            border_radius=10,
+            blur=ft.Blur(10, 0, ft.BlurTileMode.MIRROR),
+            bgcolor="#ffffff",
+            border=ft.border.all(2, ft.colors.BLUE_100),
+           
+            )
+        return ft.Row([self.student_container],alignment=ft.MainAxisAlignment.CENTER)
     
     def add_student(self,e):
         if not self.first_name.value and not self.last_name and not self.date_of_birth and not self.phone_number and not self.address :
