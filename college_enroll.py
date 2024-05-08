@@ -26,6 +26,12 @@ class Student(ft.UserControl):
         self.phone_number=ft.TextField(label="Phone Number",hint_text="Phone Number",width=300)
         self.address=ft.TextField(label="Address",hint_text="address",width=300,multiline=True)
         self.save_student=ft.ElevatedButton("Save student",on_click=self.add_student)
+        self.table=ft.DataTable(columns=[
+            ft.DataColumn(ft.Text("First name")),
+            ft.DataColumn(ft.Text("Last Name")),
+            ft.DataColumn(ft.Text("Date of birth")),
+            ft.DataColumn(ft.Text("Phone Number")),
+        ])
         self.student_container = ft.Container(
             ft.Column(
                 [self.first_name,
