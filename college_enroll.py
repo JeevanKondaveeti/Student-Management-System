@@ -1,4 +1,5 @@
 import flet as ft
+import dbutil
 
 """
 Theory: Why do we need User Controls
@@ -62,3 +63,5 @@ class Student(ft.UserControl):
         else:
             with open('student.txt','a') as f:
                 f.write(self.first_name.value)
+            data=[self.first_name.value,self.last_name.value,self.date_of_birth.value,self.address.value,self.phone_number.value]
+            dbutil.save_data("student",data)
